@@ -178,18 +178,18 @@ export default Service.extend({
 
   unwire(target, channelName, eventsToUnwire) {
     let pusher = this.pusher,
-        bindings = this.get('bindings'),
-        targetId = target._pusherEventsId(),
-        channel = bindings[channelName].channel,
-        eventBindings = bindings[channelName].eventBindings[targetId];
+      bindings = this.get("bindings"),
+      targetId = target._pusherEventsId(),
+      channel = bindings[channelName].channel,
+      eventBindings = bindings[channelName].eventBindings[targetId];
 
-    if(typeof eventsToUnwire === 'string') {
+    if (typeof eventsToUnwire === "string") {
       eventsToUnwire = [eventsToUnwire];
     }
     let index = eventBindings.length;
-    while (index--){
+    while (index--) {
       let binding = eventBindings[index];
-      if(eventsToUnwire && !eventsToUnwire.contains(binding.eventName)) {
+      if (eventsToUnwire && !eventsToUnwire.includes(binding.eventName)) {
         return;
       }
       channel.unbind(binding.eventName, binding.handler);
