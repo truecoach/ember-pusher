@@ -55,16 +55,16 @@ export default Service.extend({
   isConnected: not("isDisconnected"),
 
   init() {
-    this.pusher = null;
+    this.set("pusher", null);
     this.set("bindings", {});
-    this.logEvents = false;
+    this.set("logEvents", false);
     this._super();
   },
 
   setup(applicationKey, options) {
     assert("ember-pusher can only be setup once", !this.pusher);
 
-    this.pusher = new Pusher(applicationKey, options);
+    this.set("pusher", new Pusher(applicationKey, options));
     this.pusher.connection.bind("connected", this._didConnect.bind(this));
     this.pusher.connection.bind("disconnected", this._didDisconnect.bind(this));
     this.pusher.connection.bind("unavailable", this._didDisconnect.bind(this));
